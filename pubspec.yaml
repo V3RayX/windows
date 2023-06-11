@@ -1,5 +1,5 @@
 name: v3ray_windows
-description: A new Flutter project.
+description: A GUI V2Ray Client for Windows
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -35,6 +35,10 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+  win32: ^5.0.3
+  ffi: ^2.0.2
+  path_provider: ^2.0.15
+  flutter_archive: ^5.0.0
 
 dev_dependencies:
   flutter_test:
@@ -59,7 +63,6 @@ flutter:
   uses-material-design: true
   assets:
     - assets/
-    - assets/v2rayCore/
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg
