@@ -39,6 +39,7 @@ dependencies:
   ffi: ^2.0.2
   path_provider: ^2.0.15
   flutter_archive: ^5.0.0
+  archive: ^3.3.7
 
 dev_dependencies:
   flutter_test:

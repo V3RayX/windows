@@ -3,6 +3,14 @@
 import 'package:flutter/material.dart';
 import 'package:win32/win32.dart';
 import 'package:ffi/ffi.dart';
+import 'package:path_provider/path_provider.dart';
+import 'home.dart';
+
+Future<String> get _localPath async {
+  final directory = await getApplicationDocumentsDirectory();
+
+  return directory.path;
+}
 
 class ConnectScreenHome extends StatefulWidget {
   const ConnectScreenHome({super.key});
@@ -39,10 +47,11 @@ class _ConnectButtonState extends State<ConnectButton> {
     return SizedBox(
       child: ElevatedButton(
         child: Text('Connect'),
-        onPressed: () {
+        onPressed: () async {
           try {
+            String corePath = await _localPath + '\\v3ray\\';
             final verb = 'open'.toNativeUtf16();
-            final process = 'assets/v2rayCore/v2ray.exe'.toNativeUtf16();
+            final process = '${corePath}\\v2ray.exe'.toNativeUtf16();
             final params = ''.toNativeUtf16();
             final nullParams = ''.toNativeUtf16();
             ShellExecute(0, verb, process, params, nullParams, SW_SHOW);

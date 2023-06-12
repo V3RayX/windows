@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:flutter_archive/flutter_archive.dart';
+import 'package:archive/archive_io.dart';
 import 'dart:convert';
 import 'dart:io';
 
@@ -11,6 +11,8 @@ import 'main.dart';
 import 'connect.dart';
 import 'proxy/gen_config.dart';
 
+bool configFieldShow = false;
+String? configFieldText;
 Future<String> get _localPath async {
   final directory = await getApplicationDocumentsDirectory();
 
@@ -93,7 +95,11 @@ class _AddConfigTextBoxState extends State<AddConfigTextBox> {
       child: TextField(
         controller: rawConfigTextBoxController,
         decoration: InputDecoration(
-            labelText: 'V2Ray Config', hintText: 'Enter base64 v2ray config'),
+          labelText: 'V2Ray Config',
+          hintText: 'Enter base64 v2ray config',
+          errorMaxLines: 3,
+          errorText: configFieldShow ? configFieldText : null,
+        ),
         autofocus: true,
         autocorrect: false,
         maxLength: 1500,
@@ -147,14 +153,7 @@ class _CompileRawConfigState extends State<CompileRawConfig> {
             final coreData = corezipfile.readAsBytesSync();
             writeCoreZip(corePathTarget, coreData);
 
-            final zipFile = File(corePathTarget);
-            final destinationDir = Directory(dest);
-            try {
-              ZipFile.extractToDirectory(
-                  zipFile: zipFile, destinationDir: destinationDir);
-            } catch (e) {
-              print(e);
-            }
+            extractFileToDisk(corePathTarget, dest);
 
             // writeConfig(finalConf!);
 
@@ -163,6 +162,11 @@ class _CompileRawConfigState extends State<CompileRawConfig> {
               MaterialPageRoute(
                   builder: (context) => const ConnectScreenHome()),
             );
+          } else {
+            setState(() {
+              configFieldShow = true;
+              configFieldText = 'Config cannot be empty';
+            });
           }
         },
       ),
