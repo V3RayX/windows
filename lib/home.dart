@@ -129,6 +129,10 @@ class _CompileRawConfigState extends State<CompileRawConfig> {
             if (rawConfigTextBoxController!.text.startsWith('vmess://')) {
               rawBase64 = rawConfigTextBoxController!.text.substring(8);
               serverProtocol = 'vmess';
+            } else if (rawConfigTextBoxController!.text
+                .startsWith('trojan://')) {
+              rawBase64 = rawConfigTextBoxController!.text.substring(9);
+              serverProtocol = 'trojan';
             }
 
             var rawDecodedBase64 = base64.decoder.convert(rawBase64!);
@@ -142,7 +146,7 @@ class _CompileRawConfigState extends State<CompileRawConfig> {
                 rawJson['port'].toString(),
                 rawJson['id'],
                 serverProtocol!,
-                rawJson['host']);
+                rawJson['host'] ?? '');
 
             CreateDirectory(await _localPath, 'v3ray');
             String corePathTarget =
