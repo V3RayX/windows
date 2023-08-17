@@ -15,7 +15,6 @@ bool configFieldShow = false;
 String? configFieldText;
 Future<String> get _localPath async {
   final directory = await getApplicationDocumentsDirectory();
-
   return directory.path;
 }
 
@@ -140,13 +139,13 @@ class _CompileRawConfigState extends State<CompileRawConfig> {
             var rawJson = jsonDecode(decodedBase64);
             //print(rawJson);
             finalConf = genConfig(
-                '10808',
-                '10809',
-                rawJson['add'],
-                rawJson['port'].toString(),
-                rawJson['id'],
-                serverProtocol!,
-                rawJson['host'] ?? '');
+                listenPortSocks: '10808',
+                listenPortHTTP: '10809',
+                serverAddress: rawJson['add'],
+                serverPort: rawJson['port'].toString(),
+                usersID: rawJson['id'],
+                serverProtocol: serverProtocol!,
+                requestHeaderHost: rawJson['host'] ?? '');
 
             CreateDirectory(await _localPath, 'v3ray');
             String corePathTarget =

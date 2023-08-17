@@ -2,14 +2,13 @@
 import 'dart:io';
 
 String genConfig(
-  String listenPortSocks,
-  String listenPortHTTP,
-  String serverAddress,
-  String serverPort,
-  String usersID,
-  String serverProtocol,
-  String requestHeaderHost,
-) {
+    {required String listenPortSocks,
+    required String listenPortHTTP,
+    required String serverProtocol,
+    required String serverAddress,
+    required String serverPort,
+    required String usersID,
+    required String requestHeaderHost}) {
   /*
   *
   *

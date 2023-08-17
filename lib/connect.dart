@@ -1,6 +1,4 @@
-// ignore_for_file: unused_import, prefer_const_literals_to_create_immutables, prefer_const_constructors, avoid_unnecessary_containers
-
-import 'dart:js_interop';
+// ignore_for_file: unused_import, prefer_const_literals_to_create_immutables, prefer_const_constructors, avoid_unnecessary_containers, prefer_conditional_assignment, prefer_interpolation_to_compose_strings, unnecessary_brace_in_string_interps
 
 import 'package:flutter/material.dart';
 import 'package:win32/win32.dart';
@@ -55,13 +53,13 @@ class ConnectButton extends StatefulWidget {
 
 ProxyManager manager = ProxyManager();
 void setSystemProxy(String? listenOn, int? port) async {
-  if (port.isNull) {
+  if (port == null) {
     port = 10809;
   }
   if (listenOn == null) {
     listenOn = '127.0.0.1';
   }
-  await manager.setAsSystemProxy(ProxyTypes.http, listenOn, port!);
+  await manager.setAsSystemProxy(ProxyTypes.http, listenOn, port);
 }
 
 class _ConnectButtonState extends State<ConnectButton> {
